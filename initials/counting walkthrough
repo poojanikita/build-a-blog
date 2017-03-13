@@ -1,0 +1,11 @@
+cont = "y"
+while cont == "y":
+  grade = input("Your grade (0.0-4.0)")
+  grade = float(grade)
+
+  credits = input("How many credit hours? (0-3)")
+  credits = int(credits)
+
+  cont = input("Enter another grade[y/n]")
+  while cont != "y" or cont != "n":
+    cont = input("Enter another grade[y/n]")

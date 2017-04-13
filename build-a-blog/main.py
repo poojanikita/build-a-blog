@@ -56,7 +56,7 @@ class NewPost(Handler):
         if title and content:
             a = BlogPost(title = title, content = content)
             a.put()
-            self.redirect("/blog")
+            self.redirect("/blog/%s" % a.key().id())
         else:
             error= "HEY! We need both a title and content..get to work!"
             self.render_front(title, content, error)
@@ -65,16 +65,25 @@ class NewPost(Handler):
 
 class Blog(Handler):
 
-    def render_mainblog(self, title="", content = ""):
-        blogpost = db.GqlQuery("SELECT * FROM BlogPost ORDER BY created DESC LIMIT 5")
-
-        self.render("mainblog.html", title=title, content=content, blogpost = blogpost)
-
     def get(self):
-        self.render_mainblog()
+        blogpost = db.GqlQuery("SELECT * FROM BlogPost ORDER BY created DESC LIMIT 5")
+        self.render("mainblog.html", blogpost = blogpost)
+
+
+class ViewPostHandler(Handler):
+
+    def get(self, id):
+        blogpost = BlogPost.get_by_id(int(id))
+        title = self.request.get("title")
+        content = self.request.get("content")
+        if blogpost:
+            self.render("blogpost.html", title=title,content=content,blogpost=blogpost)
+        else:
+            error = "If I can't find the ID, did it ever really exist?"
+            self.response.write(error)
 
 
 
 app = webapp2.WSGIApplication([
-    ('/blog', Blog),('/blog/newpost', NewPost)
-], debug=True)
+    ('/blog', Blog),('/blog/newpost', NewPost),webapp2.Route('/blog/<id:\d+>', ViewPostHandler)]
+, debug=True)

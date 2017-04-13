@@ -1,11 +1,18 @@
 {%extends "base.html"%}
 {%block content%}
-  <h3>TOP 5 RECENT BLOGS!</h3>
+  <h1><marquee>Welcome to Blogs-R-Us</marquee></h1>
+  <br>
+  <a href='blog/newpost'>Click Here to Submit New Blog Post</a>
+</br>
+<hr>
+<h3>TOP 5 RECENT BLOGS!</h3>
 <form>
   {% for p in blogpost %}
-    <a href='/blog/{{p.key().id()}}'>{{title}}</a></div>
-    <pre>{{content}}</pre>
+    <ul>
+    <li><a href='/blog/{{p.key().id()}}'>{{p.title}}</a><div>
+    <pre>{{p.content}}</pre></li>
     </div>
+  </ul>
   {% endfor %}
 </form>
 

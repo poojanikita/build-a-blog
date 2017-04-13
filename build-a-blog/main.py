@@ -56,11 +56,29 @@ class NewPost(Handler):
         if title and content:
             a = BlogPost(title = title, content = content)
             a.put()
-            self.redirect("/blog/%s" % a.key().id())
+            self.redirect("/")
         else:
             error= "HEY! We need both a title and content..get to work!"
             self.render_front(title, content, error)
 
+class MainPage(Handler):
+    def render_front(self, title="", content = "", error=""):
+        self.render("base.html", title=title, content=content, error=error)
+
+    def get(self):
+        self.render_front()
+
+    def post(self):
+        title = self.request.get("title")
+        content = self.request.get("content")
+
+        if title and content:
+            a = BlogPost(title = title, content = content)
+            a.put()
+            self.redirect("/blog/%s" % a.key().id())
+        else:
+            error= "HEY! We need both a title and content..get to work!"
+            self.render_front(title, content, error)
 
 
 class Blog(Handler):
@@ -84,6 +102,6 @@ class ViewPostHandler(Handler):
 
 
 
-app = webapp2.WSGIApplication([
+app = webapp2.WSGIApplication([ ('/', MainPage),
     ('/blog', Blog),('/blog/newpost', NewPost),webapp2.Route('/blog/<id:\d+>', ViewPostHandler)]
 , debug=True)

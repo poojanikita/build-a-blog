@@ -1,0 +1,12 @@
+{%extends "base.html"%}
+{%block content%}
+  <h3>TOP 5 RECENT BLOGS!</h3>
+
+  {% for p in blogpost %}
+      <div>{{p.title}}</div>
+      <pre>{{p.content}}</pre>
+    </div>
+  {% endfor %}
+
+
+{%endblock%}

@@ -1,0 +1,40 @@
+body {
+	margin: auto;
+	background-color: #33FFE3;
+}
+h3{
+  font-size:24px;
+  margin: 0 auto;
+  text-align: center;
+  text-decoration: underline;
+}
+main {
+  text-align: center;
+}
+ol{
+  list-style-position: inside;
+}
+header{
+  text-align: center;
+  font-family: fantasy;
+  font-size: 36px;
+  padding-top: : 15px;
+  padding-bottom: 5px;
+
+}
+footer{
+  text-align: center;
+  font-size: 10px;
+  font-family: serif;
+}
+img {
+   padding:5px;
+   border:15px solid #021a40;
+   background-color:#ff0;
+}
+figcaption{
+  font-family:cursive;
+}
+article{
+  padding: 10px
+}
